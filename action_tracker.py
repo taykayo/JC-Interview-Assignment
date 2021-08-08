@@ -22,6 +22,14 @@ class ActionTrackerPost:
             action = json_action["action"]
             time = json_action["time"]
 
+            # General error handling
+            if not action:
+                # if action was an empty string
+                raise ValueError("Action value cannot be empty")
+            if time < 0:
+                # if time is negative
+                raise ValueError("Time cannot be negative!!!")
+
             if action in self.actions.keys():
                 # if this action type exists in the "actions" dict, append this new time to the existing list of times
                 # associated with that unique action
@@ -37,7 +45,8 @@ class ActionTrackerPost:
 
         # TODO handle specific exceptions rather than a catch-all
         except:
-            raise ValueError("JSON improperly formatted or missing keys, please check input format")
+            raise ValueError("JSON improperly formatted or missing keys, please check input format.  Prior exceptions"
+                             "may hold more detail.")
 
         finally:
             self.lock.release()
@@ -88,6 +97,14 @@ class ActionTrackerRunning:
             action = json_action["action"]
             time = json_action["time"]
 
+            # General error handling
+            if not action:
+                # if action was an empty string
+                raise ValueError("Action value cannot be empty")
+            if time < 0:
+                # if time is negative
+                raise ValueError("Time cannot be negative!!!")
+
             if action in self.actions.keys():
                 # if this action type exists in the "actions" dict, increment the counter for that key, and add the new
                 # time value to the running sum for that key
@@ -107,7 +124,8 @@ class ActionTrackerRunning:
 
         # TODO handle specific exceptions rather than a catch-all
         except:
-            raise ValueError("JSON improperly formatted or missing keys, please check input format")
+            raise ValueError("JSON improperly formatted or missing keys, please check input format.  Prior exceptions"
+                             "may hold more detail.")
 
         finally:
             self.lock.release()
