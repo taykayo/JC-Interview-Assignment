@@ -43,10 +43,10 @@ class ActionTrackerPost:
 
                 self.actions[action] = [time]
 
-        # TODO handle specific exceptions rather than a catch-all
+        # So long as the inputs are valid, exceptions should not occur. This generic raise will re-raise any prior
+        # exceptions, so will not overwrite custom ones, and will allow for unexpected exceptions to be raised.
         except:
-            raise ValueError("JSON improperly formatted or missing keys, please check input format.  Prior exceptions"
-                             "may hold more detail.")
+            raise
 
         finally:
             self.lock.release()
@@ -122,10 +122,10 @@ class ActionTrackerRunning:
 
                 self.actions[action] = [time, 1]
 
-        # TODO handle specific exceptions rather than a catch-all
+        # So long as the inputs are valid, exceptions should not occur. This generic raise will re-raise any prior
+        # exceptions, so will not overwrite custom ones, and will allow for unexpected exceptions to be raised.
         except:
-            raise ValueError("JSON improperly formatted or missing keys, please check input format.  Prior exceptions"
-                             "may hold more detail.")
+            raise
 
         finally:
             self.lock.release()

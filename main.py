@@ -6,7 +6,7 @@ from action_tracker import ActionTrackerPost, ActionTrackerRunning
 if __name__ == '__main__':
     Action_Tracker = ActionTrackerPost()
     Action_Tracker2 = ActionTrackerRunning()
-    Action_Tracker.add_action({'action': 'jump', 'time': 9})
+    Action_Tracker.add_action({'action': 'jump', 'time': -9})
     Action_Tracker2.add_action({'action': 'jump', 'time': 2147483647})
     # for i in range(100000):
     #     randnumber = random.randint(0, 5000)
