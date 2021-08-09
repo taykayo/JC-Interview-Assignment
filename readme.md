@@ -61,7 +61,7 @@ among various other fringe cases.  Extra keys in the json input are unused and w
 they contain invalid json formatting.  Actions other than 'jump' and 'run' are allowed.  Concurrent actions
 should not present an issue as each object contains a Lock that prevents race conditions.
 
-##Future Considerations
+## Future Considerations
 
 - Clean the test code a bit, and add more tests. Not every single fringe case has an automated test. In particular,
 write a test case to verify the threading.Lock() objects are functioning as desired to prevent issues with concurrent
