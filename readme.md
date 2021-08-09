@@ -65,7 +65,7 @@ should not present an issue as each object contains a Lock that prevents race co
 
 - Clean the test code a bit, and add more tests. Not every single fringe case has an automated test. In particular,
 write a test case to verify the threading.Lock() objects are functioning as desired to prevent issues with concurrent
-calls.
+calls. Should also break tests into smaller pieces.
 - Make variable names more intuitive, though they are not heinous as is.
 - Consider merging implementations to keep the extensibility of post-processing the averages, along with
 the speed of keeping a running sum.

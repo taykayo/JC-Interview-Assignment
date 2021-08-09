@@ -72,7 +72,6 @@ class ActionTrackerPost:
                     # calculate average for each unique key in actions dict
                     avg_list.append({"action": key, "avg": (sum(self.actions[key])/len(self.actions[key]))})
 
-
         finally:
             self.lock.release()
         return avg_list
@@ -155,7 +154,6 @@ class ActionTrackerRunning:
                 for key in self.actions.keys():
                     # calculate average for each unique key in actions dict
                     avg_list.append({"action": key, "avg": self.actions[key][0]/self.actions[key][1]})
-
 
         finally:
             self.lock.release()
