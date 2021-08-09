@@ -59,7 +59,6 @@ class ActionTrackerPost:
     def get_stats(self):
         # compute the average time of each unique "action"
 
-        avg_dict = {}
         avg_list = []
         # Due to concurrency concerns, set a lock to prevent race conditions. Less important here as no data is being
         # saved, but this still ensures action data is added while calculations are being run
@@ -71,10 +70,7 @@ class ActionTrackerPost:
 
                 for key in self.actions.keys():
                     # calculate average for each unique key in actions dict
-                    avg_dict['action'] = key
-                    avg_dict['avg'] = (sum(self.actions[key])/len(self.actions[key]))
-                    avg_list.append(avg_dict)
-
+                    avg_list.append({"action": key, "avg": (sum(self.actions[key])/len(self.actions[key]))})
 
 
         finally:
@@ -148,7 +144,6 @@ class ActionTrackerRunning:
     def get_stats(self):
         # compute the average time of each unique "action"
 
-        avg_dict = {}
         avg_list = []
 
         # Due to concurrency concerns, set a lock to prevent race conditions. Less important here as no data is being
@@ -159,10 +154,7 @@ class ActionTrackerRunning:
             if self.actions:
                 for key in self.actions.keys():
                     # calculate average for each unique key in actions dict
-
-                    avg_dict['action'] = key
-                    avg_dict['avg'] = self.actions[key][0]/self.actions[key][1]
-                    avg_list.append(avg_dict)
+                    avg_list.append({"action": key, "avg": self.actions[key][0]/self.actions[key][1]})
 
 
         finally:
