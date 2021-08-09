@@ -10,8 +10,9 @@ No specific virtual environment is necessary to install as only built-in modules
 This small chunk of python code is meant to satisfy the requirements specified
 in \docs\Backend Assignment - Senior Software.pdf
 
-Contains two classes that are identical in terms of current function, but present two differing
-implementations to achieve their goal.
+action_tracker.py contains two classes that are identical in terms of current function, but present two differing
+implementations to achieve their goal. These implementations could be merged, but I wanted to highlight two
+different solutions for different use cases.
 
 Both classes feature an "add_action(json_serialized_string)" function, and a "get_stats()" function.
 
@@ -28,7 +29,8 @@ for key in self.actions.keys():
 dictionary is undergoing summation.
 - As each action "event" is stored with the calculations happening only when desired, adding additional
 metrics is trivial
-
+- The add_action() runtime in this implementation is faster, and would be more useful in applications where adding data
+needs to be super responsive and calculations are done once and are more time-tolerant
 ### ActionTrackerRunning
 - Stores the inputted actions in a dictionary, where the key is the action name, and the value
 is a list containing a running sum of time for that particular action, and the # of times that particular
@@ -46,9 +48,10 @@ the running sum of time values for the inputted action.
 actions, as it performs one calculation per unique action, rather than summating through the lists of each
 inputted time value. As such, this performs **far** better on average than in ActionTrackerPost.
 - Due to how the values are stored, this implementation is only useful for calculating averages as the
-original data is altered.  Ideally these implementations could be merged, but I wanted to highlight two
-different solutions for different use cases.
-
+original data is altered.
+- The add_action() runtime in this implementation is **marginally** slower, and would be more useful in 
+applications where calculation speed needs to be time-efficient. The drawback being less flexibility if more metrics
+were desired (min, max, median, etc)
 ## Usage
 Run the the following to scripts from command line. 
 
