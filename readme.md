@@ -22,6 +22,7 @@ is a list of all the times associated with that action, e.g. {'Jump': [100,20,25
 ```python
 for key in self.actions.keys():
     # calculate average for each unique key in actions dict
+
     avg_dict['action'] = key
     avg_dict['avg'] = (sum(self.actions[key])/len(self.actions[key]))
 ```
