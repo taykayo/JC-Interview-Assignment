@@ -23,9 +23,14 @@ class ActionTrackerPost:
             time = json_action["time"]
 
             # General error handling
+            if not isinstance(action, str):
+                raise ValueError("Action value must be a string")
             if not action:
                 # if action was an empty string
                 raise ValueError("Action value cannot be empty")
+
+            if not isinstance(time, int):
+                raise ValueError("Time value must be a integer")
             if time < 0:
                 # if time is negative
                 raise ValueError("Time cannot be negative!!!")
@@ -55,6 +60,7 @@ class ActionTrackerPost:
         # compute the average time of each unique "action"
 
         avg_dict = {}
+        avg_list = []
         # Due to concurrency concerns, set a lock to prevent race conditions. Less important here as no data is being
         # saved, but this still ensures action data is added while calculations are being run
         self.lock.acquire()
@@ -63,13 +69,17 @@ class ActionTrackerPost:
             if self.actions:
                 # if dict is not empty (empty dicts return false)
 
-                for _ in self.actions.keys():
+                for key in self.actions.keys():
                     # calculate average for each unique key in actions dict
-                    avg_dict[_] = (sum(self.actions[_])/len(self.actions[_]))
+                    avg_dict['action'] = key
+                    avg_dict['avg'] = (sum(self.actions[key])/len(self.actions[key]))
+                    avg_list.append(avg_dict)
+
+
 
         finally:
             self.lock.release()
-        return avg_dict
+        return avg_list
 
 
 class ActionTrackerRunning:
@@ -98,9 +108,14 @@ class ActionTrackerRunning:
             time = json_action["time"]
 
             # General error handling
+            if not isinstance(action, str):
+                raise ValueError("Action value must be a string")
             if not action:
                 # if action was an empty string
                 raise ValueError("Action value cannot be empty")
+
+            if not isinstance(time, int):
+                raise ValueError("Time value must be an integer")
             if time < 0:
                 # if time is negative
                 raise ValueError("Time cannot be negative!!!")
@@ -134,6 +149,7 @@ class ActionTrackerRunning:
         # compute the average time of each unique "action"
 
         avg_dict = {}
+        avg_list = []
 
         # Due to concurrency concerns, set a lock to prevent race conditions. Less important here as no data is being
         # saved, but this still ensures action data is added while calculations are being run
@@ -141,11 +157,14 @@ class ActionTrackerRunning:
 
         try:
             if self.actions:
-                for x in self.actions.keys():
+                for key in self.actions.keys():
                     # calculate average for each unique key in actions dict
 
-                    avg_dict[x] = self.actions[x][0]/self.actions[x][1]
+                    avg_dict['action'] = key
+                    avg_dict['avg'] = self.actions[key][0]/self.actions[key][1]
+                    avg_list.append(avg_dict)
+
 
         finally:
             self.lock.release()
-        return avg_dict
+        return avg_list
